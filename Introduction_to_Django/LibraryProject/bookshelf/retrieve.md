@@ -5,3 +5,4 @@ This operation demonstrates how to retrieve and display a book instance using Dj
 ## Step 1: Open the Django Shell
 ```bash
 python manage.py shell
+Book.objects.get(title="1984")
