@@ -1,8 +1,8 @@
-from django.shortcuts import render
-from django.views.generic.detail import DetailView
-from .models import Library
+from django.db import models
 
-class LibraryDetailView(DetailView):
-    model = Library
-    template_name = 'relationship_app/library_detail.html'
-    context_object_name = 'library'
+class Library(models.Model):
+    name = models.CharField(max_length=100)
+    location = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
