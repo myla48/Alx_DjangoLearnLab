@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book List</title>
+</head>
+<body>
+  <h1>All Books</h1>
+  <ul>
+    {% for book in books %}
+      <li>
+        <strong>{{ book.title }}</strong> by {{ book.author }} ({{ book.publication_year }}) - {{ book.genre }}
+        {% if book.is_classic %}
+          <em> - Classic</em>
+        {% endif %}
+      </li>
+    {% empty %}
+      <li>No books available.</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
