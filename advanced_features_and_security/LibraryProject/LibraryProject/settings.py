@@ -12,4 +12,18 @@ INSTALLED_APPS = [
 
 # Custom user model
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+# SECURITY SETTINGS
+
+# Never run with DEBUG = True in production
+DEBUG = False
+
+# Browser-side protections
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = "DENY"
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Ensure cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
 
