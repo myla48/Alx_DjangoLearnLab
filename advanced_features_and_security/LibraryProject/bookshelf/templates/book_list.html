@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Library Books</h2>
+
+  {% if books %}
+    <ul>
+      {% for book in books %}
+        <li>
+          <strong>{{ book.title }}</strong> by {{ book.author }}
+          {% if book.published_date %}
+            (Published: {{ book.published_date }})
+          {% endif %}
+
+          <!-- Delete option only for users with can_delete -->
+          {% if perms.bookshelf.can_delete %}
+            <form method="post" action="{% url 'delete_book' book.id %}" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit">Delete</button>
+            </form>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No books available.</p>
+  {% endif %}
+
+  <!-- Create option only for users with can_create -->
+  {% if perms.bookshelf.can_create %}
+    <p><a href="{% url 'create_book' %}">Add a new book</a></p>
+  {% endif %}
+{% endblock %}
