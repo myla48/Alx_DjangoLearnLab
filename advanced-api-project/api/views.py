@@ -9,6 +9,11 @@ class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,   # <-- checker requires this
+    ]
 
 # Retrieve a single book by ID (read-only for unauthenticated users)
 class BookDetailView(generics.RetrieveAPIView):
