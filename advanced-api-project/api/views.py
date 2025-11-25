@@ -14,6 +14,14 @@ class BookListView(generics.ListAPIView):
         filters.SearchFilter,
         filters.OrderingFilter,   # <-- checker requires this
     ]
+    filterset_fields = ['title', 'author__name', 'publication_year']
+
+    # Searching options
+    search_fields = ['title', 'author__name']
+
+    # Ordering options
+    ordering_fields = ['title', 'publication_year']
+    ordering = ['title']  # default ordering
 
 # Retrieve a single book by ID (read-only for unauthenticated users)
 class BookDetailView(generics.RetrieveAPIView):
