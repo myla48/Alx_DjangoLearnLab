@@ -1,10 +1,7 @@
-# Advanced API Project with Django REST Framework
+## Installation Check
 
-## ✅ Installation Verification
-
-This section confirms that the project was successfully installed with Django.
-
-### Steps Performed
-1. Installed Django and Django REST Framework:
-   ```bash
-   pip install django djangorestframework
+- Ran `python manage.py runserver` → Django server started successfully.
+- Initially saw 18 unapplied migrations (admin, auth, contenttypes, sessions).
+- Fixed by running:
+  ```bash
+  python manage.py migrate
