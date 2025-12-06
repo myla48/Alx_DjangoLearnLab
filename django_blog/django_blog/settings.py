@@ -17,3 +17,6 @@ DATABASES = {
         'PORT': '5432',                              # 👈 default PostgreSQL port
     }
 }
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]   # for global static files
+
