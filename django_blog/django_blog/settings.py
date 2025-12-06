@@ -7,3 +7,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',   # 👈 added here
 ]
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',   # Database backend
+        'NAME': 'mydatabase',                        # Database name
+        'USER': 'myuser',                            # 👈 your DB username
+        'PASSWORD': 'mypassword',                    # 👈 your DB password
+        'HOST': 'localhost',                         # 👈 or your DB server IP
+        'PORT': '5432',                              # 👈 default PostgreSQL port
+    }
+}
