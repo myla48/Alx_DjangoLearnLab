@@ -12,7 +12,7 @@ urlpatterns = [
     path("posts/", PostListView.as_view(), name="post-list"),
 
     # View a single post
-    path("posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
+    path("post/<int:pk>/delete/", PostDetailView.as_view(), name="post-detail"),
 
     # Create a new post
     path("posts/new/", PostCreateView.as_view(), name="post-create"),
