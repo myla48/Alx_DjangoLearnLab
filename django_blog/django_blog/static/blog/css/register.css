@@ -1,0 +1,39 @@
+/* Styles for register.html */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f3f4f6;
+}
+
+.register-form {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 25px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.register-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.register-form input,
+.register-form button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+
+.register-form button {
+  background: #10b981;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.register-form button:hover {
+  background: #059669;
+}
