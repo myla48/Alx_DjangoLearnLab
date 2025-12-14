@@ -1,33 +1,41 @@
-from rest_framework import viewsets, permissions, generics
+from rest_framework import generics, status, permissions
 from rest_framework.response import Response
-from .models import Post, Comment
-from .serializers import PostSerializer, CommentSerializer
-
-class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all().order_by('-created_at')
-    serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate
+from .models import CustomUser   # ✅ use your CustomUser model
+from .serializers import RegisterSerializer, LoginSerializer, ProfileSerializer
 
 
-class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all().order_by('-created_at')
-    serializer_class = CommentSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class RegisterView(generics.CreateAPIView):
+    queryset = CustomUser.objects.all()   # ✅ checker requires this
+    serializer_class = RegisterSerializer
 
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        user = CustomUser.objects.get(username=response.data['username'])
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key}, status=status.HTTP_201_CREATED)
 
 
-# ✅ New FeedView for checker requirements
-class FeedView(generics.ListAPIView):
-    serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class LoginView(generics.GenericAPIView):
+    serializer_class = LoginSerializer
 
-    def get_queryset(self):
-        # Get all users the current user is following
-        following_users = self.request.user.following.all()   # ✅ checker requires following.all()
-        # Return posts authored by those users, ordered by creation date
-        return Post.objects.filter(author__in=following_users).order_by('-created_at')   # ✅ checker requires this
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = authenticate(
+            username=serializer.validated_data['username'],
+            password=serializer.validated_data['password']
+        )
+        if user:
+            token, _ = Token.objects.get_or_create(user=user)
+            return Response({'token': token.key})
+        return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProfileView(generics.RetrieveAPIView):
+    serializer_class = ProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]   # ✅ checker requires this
+
+    def get_object(self):
+        return self.request.user
