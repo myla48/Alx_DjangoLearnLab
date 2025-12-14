@@ -6,11 +6,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Third-party apps
+    # Third-party
     'rest_framework',
     'rest_framework.authtoken',
 
-    # Local apps
+    # Local
     'accounts',
 ]
 
@@ -19,3 +19,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
+
+AUTH_USER_MODEL = 'accounts.User'  # if you defined a custom user model
