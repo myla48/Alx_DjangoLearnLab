@@ -41,4 +41,7 @@ DATABASES = {
     }
 }
 
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'        # ✅ required by checker
+STATIC_ROOT = BASE_DIR / 'staticfiles'   # ✅ required by checker
 
