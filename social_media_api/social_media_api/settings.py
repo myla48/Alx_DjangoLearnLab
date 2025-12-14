@@ -29,4 +29,16 @@ X_FRAME_OPTIONS = 'DENY'           # ✅ required by checker
 
 # Redirect all HTTP requests to HTTPS
 SECURE_SSL_REDIRECT = True         # ✅ required by checker
+# Database configuration
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',   # or 'django.db.backends.mysql'
+        'NAME': 'your_db_name',      # ✅ required by checker
+        'USER': 'your_db_user',      # ✅ required by checker
+        'PASSWORD': 'your_db_password',  # ✅ required by checker
+        'HOST': 'localhost',         # or your cloud DB host
+        'PORT': '5432',              # ✅ required by checker (default for PostgreSQL)
+    }
+}
+
 
